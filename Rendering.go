@@ -17,7 +17,7 @@ func (song *Song) getTextBoxBounds(fontSize float64, str string, c *canvas.Canva
 }
 
 func (song *Song) RenderSong() {
-	file, err := os.Open(song.pathToFile)
+	file, err := os.Open(song.PathToFile)
 	handle(err)
 	scanner := bufio.NewScanner(file)
 
