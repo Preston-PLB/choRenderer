@@ -88,5 +88,5 @@ func handle(err error) {
 }
 
 func (song *Song) getOutputPath() (path string) {
-	return song.pathToFile + string(os.PathSeparator) + song.Name
+	return song.PathToFile + string(os.PathSeparator) + song.Name
 }
