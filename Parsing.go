@@ -8,8 +8,8 @@ import (
 
 type Song struct {
 	sections   []Section
-	name       string
-	outputPath string
+	Name       string
+	OutputPath string
 
 	fontFamily *canvas.FontFamily
 }
