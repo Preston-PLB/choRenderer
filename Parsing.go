@@ -3,13 +3,14 @@ package choRenderer
 import (
 	"github.com/tdewolff/canvas"
 	"math"
+	"os"
 	"strings"
 )
 
 type Song struct {
 	sections   []Section
 	Name       string
-	OutputPath string
+	pathToFile string
 
 	fontFamily *canvas.FontFamily
 }
@@ -84,4 +85,8 @@ func handle(err error) {
 	if err != nil {
 		panic(err)
 	}
+}
+
+func (song *Song) getOutputPath() (path string) {
+	return song.pathToFile + string(os.PathSeparator) + song.Name
 }
