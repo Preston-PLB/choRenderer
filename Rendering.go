@@ -59,16 +59,14 @@ func (song *Song) initCanvas(width float64, height float64) (c *canvas.Canvas, c
 	return c, context
 }
 
-//TODO: Make section a song method
 func (song *Song) renderSections(sections []Section) {
 	for _, section := range sections {
-		if len(section.tags) > 0 && section.tags["comment"] != "" { //TODO: Update tag implementation
+		if len(section.tags) > 0 && section.tags["comment"] != "" {
 			song.renderSection(section)
 		}
 	}
 }
 
-//TODO: Make section a song method
 func (song *Song) renderSection(section Section) {
 
 	c, ctx := song.initCanvas(1920, 1080)
@@ -132,7 +130,7 @@ func (song *Song) calcFontSize(section Section, c *canvas.Canvas) (pnt, hMax, wM
 		fontWidth = size.W
 
 		fontSize += 1
-		//fmt.Printf("Testing font %f \n", fontSize)
+		//fmt.Printf("Testing font %f \n", fontSize) TODO: Remove debug code
 	}
 	return fontSize - 1, fontHeight, fontWidth
 }

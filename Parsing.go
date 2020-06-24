@@ -7,6 +7,7 @@ import (
 	"strings"
 )
 
+//TODO: Make file path and song more fleshed out
 type Song struct {
 	sections   []Section
 	Name       string
@@ -88,5 +89,5 @@ func handle(err error) {
 }
 
 func (song *Song) getOutputPath() (path string) {
-	return song.PathToFile + string(os.PathSeparator) + song.Name
+	return song.PathToFile + string(os.PathSeparator) + song.Name //TODO: fix this, make it more smooth
 }
