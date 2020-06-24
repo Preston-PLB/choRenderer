@@ -10,7 +10,7 @@ import (
 type Song struct {
 	sections   []Section
 	Name       string
-	pathToFile string
+	PathToFile string
 
 	fontFamily *canvas.FontFamily
 }
