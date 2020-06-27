@@ -53,7 +53,7 @@ func (song *Song) initCanvas() (c *canvas.Canvas, context *canvas.Context) {
 		panic(err)
 	}
 
-	c = canvas.New(song.resolution.W, song.resolution.H)
+	c = canvas.New(song.Resolution.W, song.Resolution.H)
 	context = canvas.NewContext(c)
 
 	return c, context
