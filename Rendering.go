@@ -24,6 +24,7 @@ func (song *Song) RenderSong() {
 	var sections []Section
 
 	var section = Section{}
+	section.initSection()
 
 	for scanner.Scan() {
 		text := scanner.Text()
@@ -37,6 +38,7 @@ func (song *Song) RenderSong() {
 		} else {
 			sections = append(sections, section)
 			section = Section{}
+			section.initSection()
 		}
 
 	}

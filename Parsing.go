@@ -23,6 +23,10 @@ type Section struct {
 	tags  map[string]string
 }
 
+func (section *Section) initSection() {
+	section.tags = make(map[string]string)
+}
+
 type Line struct {
 	lyrics string
 	chords []*Chord
