@@ -100,8 +100,19 @@ func (song *Song) renderSection(section Section) {
 	}
 
 	name := section.tags["comment"]
+	song.writeFile(c, name)
+}
 
-	err := c.WriteFile(name+".png", rasterizer.PNGWriter(1.0))
+func (song *Song) writeFile(canvas *canvas.Canvas, name string) {
+
+	_, err := os.Open(song.getOutputPath())
+
+	if err != nil {
+		fail := os.MkdirAll(song.getOutputPath(), 0755)
+		handle(fail)
+	}
+
+	err = canvas.WriteFile(song.getOutputPath()+"/"+name+".png", rasterizer.PNGWriter(1.0))
 
 	handle(err)
 }
