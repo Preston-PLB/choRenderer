@@ -55,7 +55,7 @@ func (song *Song) initCanvas() (c *canvas.Canvas, context *canvas.Context) {
 		panic(err)
 	}
 
-	c = canvas.New(song.Resolution.W, song.Resolution.H)
+	c = canvas.New(song.Resolution.H, song.Resolution.W)
 	context = canvas.NewContext(c)
 
 	return c, context
@@ -143,7 +143,6 @@ func (song *Song) calcFontSize(section Section, c *canvas.Canvas) (pnt, hMax, wM
 		fontWidth = size.W
 
 		fontSize += 1
-		//fmt.Printf("Testing font %f \n", fontSize) TODO: Remove debug code
 	}
 	return fontSize - 1, fontHeight, fontWidth
 }
