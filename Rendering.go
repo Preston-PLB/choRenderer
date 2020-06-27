@@ -24,6 +24,7 @@ func (song *Song) RenderSong() {
 	var sections []Section
 
 	var section = Section{}
+	section.initSection()
 
 	for scanner.Scan() {
 		text := scanner.Text()
@@ -37,6 +38,7 @@ func (song *Song) RenderSong() {
 		} else {
 			sections = append(sections, section)
 			section = Section{}
+			section.initSection()
 		}
 
 	}
@@ -46,32 +48,30 @@ func (song *Song) RenderSong() {
 	song.renderSections(sections)
 }
 
-func (song *Song) initCanvas(width float64, height float64) (c *canvas.Canvas, context *canvas.Context) {
+func (song *Song) initCanvas() (c *canvas.Canvas, context *canvas.Context) {
 	song.fontFamily = canvas.NewFontFamily("Ubuntu")
 	song.fontFamily.Use(canvas.CommonLigatures)
 	if err := song.fontFamily.LoadFontFile("/usr/share/fonts/truetype/ubuntu/Ubuntu-M.ttf", canvas.FontRegular); err != nil {
 		panic(err)
 	}
 
-	c = canvas.New(width, height)
+	c = canvas.New(song.Resolution.H, song.Resolution.W)
 	context = canvas.NewContext(c)
 
 	return c, context
 }
 
-//TODO: Make section a song method
 func (song *Song) renderSections(sections []Section) {
 	for _, section := range sections {
-		if len(section.tags) > 0 && section.tags["comment"] != "" { //TODO: Update tag implementation
+		if len(section.tags) > 0 && section.tags["comment"] != "" {
 			song.renderSection(section)
 		}
 	}
 }
 
-//TODO: Make section a song method
 func (song *Song) renderSection(section Section) {
 
-	c, ctx := song.initCanvas(1920, 1080)
+	c, ctx := song.initCanvas()
 
 	//setUp canvas
 	ctx.SetFillColor(canvas.Black)
@@ -100,8 +100,19 @@ func (song *Song) renderSection(section Section) {
 	}
 
 	name := section.tags["comment"]
+	song.writeFile(c, name)
+}
 
-	err := c.WriteFile(name+".png", rasterizer.PNGWriter(1.0))
+func (song *Song) writeFile(canvas *canvas.Canvas, name string) {
+
+	_, err := os.Open(song.getOutputPath())
+
+	if err != nil {
+		fail := os.MkdirAll(song.getOutputPath(), 0755)
+		handle(fail)
+	}
+
+	err = canvas.WriteFile(song.getOutputPath()+"/"+name+".png", rasterizer.PNGWriter(1.0))
 
 	handle(err)
 }
@@ -132,7 +143,6 @@ func (song *Song) calcFontSize(section Section, c *canvas.Canvas) (pnt, hMax, wM
 		fontWidth = size.W
 
 		fontSize += 1
-		//fmt.Printf("Testing font %f \n", fontSize)
 	}
 	return fontSize - 1, fontHeight, fontWidth
 }

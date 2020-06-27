@@ -7,10 +7,13 @@ import (
 	"strings"
 )
 
+//TODO: Make file path and song more fleshed out
 type Song struct {
 	sections   []Section
 	Name       string
 	PathToFile string
+
+	Resolution canvas.Rect
 
 	fontFamily *canvas.FontFamily
 }
@@ -18,6 +21,10 @@ type Song struct {
 type Section struct {
 	lines []Line
 	tags  map[string]string
+}
+
+func (section *Section) initSection() {
+	section.tags = make(map[string]string)
 }
 
 type Line struct {
@@ -88,5 +95,10 @@ func handle(err error) {
 }
 
 func (song *Song) getOutputPath() (path string) {
-	return song.PathToFile + string(os.PathSeparator) + song.Name
+	return trimDirectoryPath(song.PathToFile) + string(os.PathSeparator) + song.Name //TODO: fix this, make it more smooth
+}
+
+func trimDirectoryPath(path string) (newPath string) {
+	return path[0:strings.LastIndex(path, string(os.PathSeparator))]
+
 }
