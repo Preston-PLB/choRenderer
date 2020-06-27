@@ -13,6 +13,8 @@ type Song struct {
 	Name       string
 	PathToFile string
 
+	resolution canvas.Rect
+
 	fontFamily *canvas.FontFamily
 }
 

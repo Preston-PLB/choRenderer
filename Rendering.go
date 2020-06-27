@@ -46,14 +46,14 @@ func (song *Song) RenderSong() {
 	song.renderSections(sections)
 }
 
-func (song *Song) initCanvas(width float64, height float64) (c *canvas.Canvas, context *canvas.Context) {
+func (song *Song) initCanvas() (c *canvas.Canvas, context *canvas.Context) {
 	song.fontFamily = canvas.NewFontFamily("Ubuntu")
 	song.fontFamily.Use(canvas.CommonLigatures)
 	if err := song.fontFamily.LoadFontFile("/usr/share/fonts/truetype/ubuntu/Ubuntu-M.ttf", canvas.FontRegular); err != nil {
 		panic(err)
 	}
 
-	c = canvas.New(width, height)
+	c = canvas.New(song.resolution.W, song.resolution.H)
 	context = canvas.NewContext(c)
 
 	return c, context
@@ -69,7 +69,7 @@ func (song *Song) renderSections(sections []Section) {
 
 func (song *Song) renderSection(section Section) {
 
-	c, ctx := song.initCanvas(1920, 1080)
+	c, ctx := song.initCanvas()
 
 	//setUp canvas
 	ctx.SetFillColor(canvas.Black)
