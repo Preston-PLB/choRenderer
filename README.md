@@ -10,7 +10,7 @@ This cho renderer go module takes a Chord Pro file and cuts it up into seperate 
 Pretty simple
 
 ```
-go get github.com/Preston-PLB/choRendere
+go get github.com/Preston-PLB/choRenderer
 ```
 
 then in your code construct a Song struct
