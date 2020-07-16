@@ -31,6 +31,6 @@ after the song has been rendered a directory in the directory of the .cho file w
 
 Because I needed a way to elegantly display chord charts on a stage display using pro presenter 7
 
-## Is there going to be an easy yo use client for this?
+## Is there going to be an easy to use client for this?
 
 I hope so... I hope so...
