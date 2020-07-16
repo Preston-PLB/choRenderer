@@ -16,7 +16,7 @@ go get github.com/Preston-PLB/choRendere
 then in your code construct a Song struct
 
 ```golang
-song := choRenderer.Song{Name: "Overcome", PathToFile: "testing/overcome-A.cho", Resolution: canvas.Rect{H: 1920, W:1080}}
+song := choRenderer.Song{Name: "Overcome", PathToFile: "testing/overcome-A.cho", Resolution: choRenderer.Rect{H: 1920, W:1080}}
 ```
 
 then render the song
