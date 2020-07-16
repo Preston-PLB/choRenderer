@@ -104,6 +104,9 @@ func (song *Song) getOutputPath() (path string) {
 }
 
 func trimDirectoryPath(path string) (newPath string) {
-	return path[0:strings.LastIndex(path, string(os.PathSeparator))]
-
+	if strings.Contains(path, string(os.PathSeparator)) {
+		return path[0:strings.LastIndex(path, string(os.PathSeparator))]
+	} else {
+		return path
+	}
 }
