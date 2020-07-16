@@ -70,6 +70,7 @@ func (song *Song) renderSections(sections []Section) {
 }
 
 func (song *Song) renderSection(section Section) {
+	//TODO: Fix issue where chord lines are rendered above the file
 
 	c, ctx := song.initCanvas()
 
@@ -80,17 +81,18 @@ func (song *Song) renderSection(section Section) {
 	song.calcPixelOffset(&section, fontSize, c)
 
 	lineOffset := math.Max(hMax, 0)
-	yOffset := math.Max((ctx.Height()-float64(len(section.lines)*2)*hMax)/2, 0)
-	xOffset := math.Max((ctx.Width()-wMax)/2, 0)
+	yOffset := math.Max((c.H-(float64(len(section.lines)*2)*hMax))/2, 0)
+	xOffset := math.Max((c.W-wMax)/2, 0)
 
 	face := song.fontFamily.Face(fontSize, canvas.White, canvas.FontRegular, canvas.FontNormal)
 	chordFace := song.fontFamily.Face(fontSize-40, canvas.White, canvas.FontRegular, canvas.FontNormal)
 
-	i := 0
+	i := 1
 	for _, line := range section.lines {
 		for _, chord := range line.chords {
 			chordLine := canvas.NewTextLine(chordFace, chord.name, canvas.Left)
-			y := (c.H - yOffset) - (lineOffset * float64(i))
+			rect := song.getTextBoxBounds(fontSize, chord.name, c)
+			y := (c.H - yOffset) - (rect.H * float64(i))
 			ctx.DrawText(xOffset+chord.pixelOffset, y, chordLine)
 		}
 		y := (c.H - yOffset) - (lineOffset * float64(i+1))

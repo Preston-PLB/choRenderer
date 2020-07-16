@@ -13,9 +13,14 @@ type Song struct {
 	Name       string
 	PathToFile string
 
-	Resolution canvas.Rect
+	Resolution Rect
 
 	fontFamily *canvas.FontFamily
+}
+
+type Rect struct {
+	H float64
+	W float64
 }
 
 type Section struct {
