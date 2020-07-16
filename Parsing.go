@@ -15,6 +15,8 @@ type Song struct {
 
 	Resolution Rect
 
+	FontPath string
+
 	fontFamily *canvas.FontFamily
 }
 
