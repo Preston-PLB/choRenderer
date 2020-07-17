@@ -20,6 +20,22 @@ type Song struct {
 	fontFamily *canvas.FontFamily
 }
 
+type SongSettings struct {
+	Name       string
+	PathToFile string
+	FontPath   string
+
+	height float64
+	width  float64
+}
+
+func (song *Song) loadSettings(settings *SongSettings) {
+	song.Name = settings.Name
+	song.PathToFile = settings.PathToFile
+	song.FontPath = settings.FontPath
+	song.Resolution = Rect{settings.height, settings.width}
+}
+
 type Rect struct {
 	H float64
 	W float64
