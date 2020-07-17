@@ -1,4 +1,4 @@
-module choRenderer
+module github.com/Preston-PLB/choRenderer
 
 go 1.14
 
