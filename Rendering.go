@@ -51,7 +51,7 @@ func (song *Song) RenderSong() {
 func (song *Song) initCanvas() (c *canvas.Canvas, context *canvas.Context) {
 	song.fontFamily = canvas.NewFontFamily("Ubuntu")
 	song.fontFamily.Use(canvas.CommonLigatures)
-	if err := song.fontFamily.LoadFontFile("/usr/share/fonts/truetype/ubuntu/Ubuntu-M.ttf", canvas.FontRegular); err != nil {
+	if err := song.fontFamily.LoadFontFile(song.FontPath, canvas.FontRegular); err != nil {
 		panic(err)
 	}
 

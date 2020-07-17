@@ -15,7 +15,25 @@ type Song struct {
 
 	Resolution Rect
 
+	FontPath string
+
 	fontFamily *canvas.FontFamily
+}
+
+type SongSettings struct {
+	Name       string
+	PathToFile string
+	FontPath   string
+
+	height float64
+	width  float64
+}
+
+func (song *Song) loadSettings(settings *SongSettings) {
+	song.Name = settings.Name
+	song.PathToFile = settings.PathToFile
+	song.FontPath = settings.FontPath
+	song.Resolution = Rect{settings.height, settings.width}
 }
 
 type Rect struct {
@@ -104,6 +122,9 @@ func (song *Song) getOutputPath() (path string) {
 }
 
 func trimDirectoryPath(path string) (newPath string) {
-	return path[0:strings.LastIndex(path, string(os.PathSeparator))]
-
+	if strings.Contains(path, string(os.PathSeparator)) {
+		return path[0:strings.LastIndex(path, string(os.PathSeparator))]
+	} else {
+		return path
+	}
 }
