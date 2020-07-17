@@ -29,7 +29,7 @@ type SongSettings struct {
 	width  float64
 }
 
-func (song *Song) loadSettings(settings *SongSettings) {
+func (song *Song) LoadSettings(settings *SongSettings) {
 	song.Name = settings.Name
 	song.PathToFile = settings.PathToFile
 	song.FontPath = settings.FontPath
