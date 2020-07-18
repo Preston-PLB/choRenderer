@@ -2,8 +2,10 @@ package choRenderer
 
 import (
 	"github.com/tdewolff/canvas"
+	"log"
 	"math"
 	"os"
+	"strconv"
 	"strings"
 )
 
@@ -25,15 +27,24 @@ type SongSettings struct {
 	PathToFile string
 	FontPath   string
 
-	height float64
-	width  float64
+	height string
+	width  string
 }
 
 func (song *Song) LoadSettings(settings *SongSettings) {
 	song.Name = settings.Name
 	song.PathToFile = settings.PathToFile
 	song.FontPath = settings.FontPath
-	song.Resolution = Rect{settings.height, settings.width}
+
+	height_float, err := strconv.ParseFloat(settings.height, 64)
+	if err != nil {
+		log.Fatal("Couldn't convert string to float 64")
+	}
+	width_float, err := strconv.ParseFloat(settings.width, 64)
+	if err != nil {
+		log.Fatal("Couldn't convert string to float 64")
+	}
+	song.Resolution = Rect{height_float, width_float}
 }
 
 type Rect struct {
