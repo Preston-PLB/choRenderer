@@ -27,8 +27,8 @@ type SongSettings struct {
 	PathToFile string
 	FontPath   string
 
-	height string
-	width  string
+	Height string
+	Width  string
 }
 
 func (song *Song) LoadSettings(settings *SongSettings) {
@@ -36,11 +36,11 @@ func (song *Song) LoadSettings(settings *SongSettings) {
 	song.PathToFile = settings.PathToFile
 	song.FontPath = settings.FontPath
 
-	height_float, err := strconv.ParseFloat(settings.height, 64)
+	height_float, err := strconv.ParseFloat(settings.Height, 64)
 	if err != nil {
 		log.Fatal("Couldn't convert string to float 64")
 	}
-	width_float, err := strconv.ParseFloat(settings.width, 64)
+	width_float, err := strconv.ParseFloat(settings.Width, 64)
 	if err != nil {
 		log.Fatal("Couldn't convert string to float 64")
 	}
