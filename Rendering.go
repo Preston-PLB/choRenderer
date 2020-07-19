@@ -10,7 +10,7 @@ import (
 )
 
 func (song *Song) getTextBoxBounds(fontSize float64, str string, c *canvas.Canvas) canvas.Rect {
-	face := song.fontFamily.Face(fontSize, canvas.Black, canvas.FontRegular, canvas.FontNormal)
+	face := song.fontFamily.Face(fontSize, song.FontColor, canvas.FontRegular, canvas.FontNormal)
 	var box = canvas.NewTextLine(face, str, canvas.Left)
 
 	return box.Bounds()
@@ -43,9 +43,14 @@ func (song *Song) RenderSong() {
 
 	}
 	sections = append(sections, section)
-	section = Section{}
 
-	song.renderSections(sections)
+	song.sections = sections
+
+	if song.NashvilleNumber {
+		song.convertToNashville()
+	}
+
+	song.renderSections()
 }
 
 func (song *Song) initCanvas() (c *canvas.Canvas, context *canvas.Context) {
@@ -61,8 +66,8 @@ func (song *Song) initCanvas() (c *canvas.Canvas, context *canvas.Context) {
 	return c, context
 }
 
-func (song *Song) renderSections(sections []Section) {
-	for _, section := range sections {
+func (song *Song) renderSections() {
+	for _, section := range song.sections {
 		if len(section.tags) > 0 && section.tags["comment"] != "" {
 			song.renderSection(section)
 		}
@@ -75,7 +80,7 @@ func (song *Song) renderSection(section Section) {
 	c, ctx := song.initCanvas()
 
 	//setUp canvas
-	ctx.SetFillColor(canvas.Black)
+	ctx.SetFillColor(song.FontColor)
 	fontSize, hMax, wMax := song.calcFontSize(section, c)
 
 	song.calcPixelOffset(&section, fontSize, c)
@@ -84,8 +89,8 @@ func (song *Song) renderSection(section Section) {
 	yOffset := math.Max((c.H-(float64(len(section.lines)*2)*hMax))/2, 0)
 	xOffset := math.Max((c.W-wMax)/2, 0)
 
-	face := song.fontFamily.Face(fontSize, canvas.White, canvas.FontRegular, canvas.FontNormal)
-	chordFace := song.fontFamily.Face(fontSize-40, canvas.White, canvas.FontRegular, canvas.FontNormal)
+	face := song.fontFamily.Face(fontSize, song.FontColor, canvas.FontRegular, canvas.FontNormal)
+	chordFace := song.fontFamily.Face(fontSize-40, song.FontColor, canvas.FontRegular, canvas.FontNormal)
 
 	i := 1
 	for _, line := range section.lines {
