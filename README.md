@@ -1,4 +1,6 @@
 # choRenderer
+![Go](https://github.com/Preston-PLB/choRenderer/workflows/Go/badge.svg?branch=master)
+
 This is the module that will be used to render out images for chord charts in propresenter7
 
 ## What does this do?
